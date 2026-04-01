@@ -1,19 +1,18 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import routes from "./routes";
 
 dotenv.config();
 
 const app = express();
 
-// Middlewares
+//middlewares
 app.use(cors());
 app.use(express.json());
 
-// Test route
-app.get("/", (req, res) => {
-  res.send("API is running 🚀");
-});
+//routes
+app.use("/", routes);
 
 const PORT = process.env.PORT || 5000;
 
