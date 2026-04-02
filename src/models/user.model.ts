@@ -1,5 +1,7 @@
 import mongoose, { Document, Schema } from "mongoose";
 
+import bcrypt from "bcryptjs";
+
 export enum Role {
   VIEWER = "viewer",
   ANALYST = "analyst",
@@ -41,5 +43,19 @@ const userSchema = new Schema<IUser>(
   },
   { timestamps: true },
 );
+
+//hashed passwd before save
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
+
+//compared passwd
+userSchema.methods.comparePassword = async function (password: string) {
+  return bcrypt.compare(password, this.password);
+};
 
 export const User = mongoose.model<IUser>("User", userSchema);
