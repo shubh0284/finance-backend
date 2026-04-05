@@ -1,10 +1,11 @@
 import { Response } from "express";
 import { Record } from "../models/record.model";
 import { AuthRequest } from "../middlewares/auth.middleware";
+import mongoose from "mongoose";
 
 export const getDashboard = async (req: AuthRequest, res: Response) => {
   try {
-    const userId = req.user.id;
+   const userId = new mongoose.Types.ObjectId(req.user.id);
 
     //Total income
     const totalIncome = await Record.aggregate([
