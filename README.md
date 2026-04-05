@@ -43,7 +43,7 @@ src/
 ## ⚙️ Setup Instructions
 
 ### 1. Clone Repository
-git clone https://github.com/your-username/finance-backend.git
+git clone https://github.com/shubh0284/finance-backend
 cd finance-backend
 
 ### 2. Install Dependencies
